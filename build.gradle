@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testImplementation group: 'com.codeborne', name: 'selenide', version: '6.1.1'
+
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // Logging of 3-rd party libraries
+    testImplementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.30'
+    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
+
+test {
+    // JUnit 5
+    useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+    // for using properties from gradle.properties
+    systemProperties = System.properties
+
+    // verbose logging in console
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "full"
+        }
+    }
+
+    // start tests every time, even when code not changed
+    outputs.upToDateWhen { false }
+}
