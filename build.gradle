@@ -37,3 +37,4 @@ tasks.withType(Test) {
     // start tests every time, even when code not changed
     outputs.upToDateWhen { false }
 }
+Kamil jednak chyba ma racje
